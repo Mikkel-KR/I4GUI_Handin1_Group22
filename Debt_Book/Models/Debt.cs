@@ -8,23 +8,26 @@ namespace Debt_Book.Models
 {
     public class Debt
     {
-        #region fields
-        private int _debtValue;
-        private readonly DateTime _date;
-        #endregion
+        private double debtValue;
+        private readonly DateTime date;
+
 
         #region properties
-
-        public int DebtValue
+        public double DebtValue
         {
-            get => _debtValue;
+            get => debtValue;
         }
 
         public DateTime Date
         {
-            get => _date;
+            get => date;
         }
-
         #endregion
+
+        public Debt(double debtValue)
+        {
+            debtValue = debtValue;
+            date = DateTime.Now;
+        }
     }
 }
