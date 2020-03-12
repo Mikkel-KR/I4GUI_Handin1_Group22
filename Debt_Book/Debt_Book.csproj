@@ -63,11 +63,11 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\DetailsWindowViewModel.cs" />
     <Compile Include="ViewModels\OverviewWindowViewModel.cs" />
-    <Page Include="DetailsWindow.xaml">
+    <Page Include="Views\DetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OverviewWindow.xaml">
+    <Page Include="Views\OverviewWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -75,12 +75,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DetailsWindow.xaml.cs">
+    <Compile Include="Views\DetailsWindow.xaml.cs">
       <DependentUpon>DetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Debt.cs" />
     <Compile Include="Models\Debtor.cs" />
-    <Compile Include="OverviewWindow.xaml.cs">
+    <Compile Include="Views\OverviewWindow.xaml.cs">
       <DependentUpon>OverviewWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -112,8 +112,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
