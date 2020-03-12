@@ -8,14 +8,12 @@ namespace Debt_Book.Models
 {
     public class Debt
     {
-        #region fields
-        private int _debtValue;
+        private double _debtValue;
         private readonly DateTime _date;
-        #endregion
+
 
         #region properties
-
-        public int DebtValue
+        public double DebtValue
         {
             get => _debtValue;
         }
@@ -24,7 +22,12 @@ namespace Debt_Book.Models
         {
             get => _date;
         }
-
         #endregion
+
+        public Debt(double debtValue)
+        {
+            _debtValue = debtValue;
+            _date = DateTime.Now;
+        }
     }
 }
