@@ -24,9 +24,9 @@ namespace Debt_Book.Models
         }
         #endregion
 
-        public Debt(double debtValue)
+        public Debt(double debt)
         {
-            debtValue = debtValue;
+            debtValue = debt;
             date = DateTime.Now;
         }
     }

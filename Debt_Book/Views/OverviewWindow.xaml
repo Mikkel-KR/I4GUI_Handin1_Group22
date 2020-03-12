@@ -20,9 +20,9 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26">Depters</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" VerticalAlignment="Center">Debtors</TextBlock>
         <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=Debtors}" DisplayMemberPath="Name"></ListBox>
-        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Add</Button>
+        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Command="{Binding Path=AddCommand}">Add</Button>
 
     </Grid>
 </Window>
