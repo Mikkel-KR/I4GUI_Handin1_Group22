@@ -15,6 +15,7 @@ namespace Debt_Book.ViewModels
 
         public DetailsWindowViewModel(string title, Debtor debtor)
         {
+            Title = title;
             CurrentDebtor = debtor;
         }
 
@@ -22,17 +23,15 @@ namespace Debt_Book.ViewModels
 
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         public Debtor CurrentDebtor
         {
-            get { return _currentDebtor; }
-            set { SetProperty(ref _currentDebtor, value); }
+            get => _currentDebtor;
+            set => SetProperty(ref _currentDebtor, value);
         }
-
-
 
         #endregion
     }

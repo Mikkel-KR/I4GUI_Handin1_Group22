@@ -21,8 +21,8 @@ namespace Debt_Book.ViewModels
 
         public List<Debtor> Debtors
         {
-            get { return _debtors; }
-            set { SetProperty(ref _debtors, value); }
+            get => _debtors;
+            set => SetProperty(ref _debtors, value);
         }
 
         #endregion
