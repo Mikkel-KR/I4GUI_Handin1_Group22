@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Debt_Book"
+        xmlns:viewModels="clr-namespace:Debt_Book.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.DataContext>
+        <viewModels:OverviewWindowViewModel/>
+    </Window.DataContext>
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -16,8 +20,8 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0">Depters</TextBlock>
-        <ListBox Grid.Column="0" Grid.Row="1"></ListBox>
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26">Depters</TextBlock>
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=Debtors}" DisplayMemberPath="Name"></ListBox>
         <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">Add</Button>
 
     </Grid>
