@@ -4,6 +4,25 @@
              xmlns:local="clr-namespace:Debt_Book"
              StartupUri="Views/OverviewWindow.xaml">
     <Application.Resources>
-         
+
+        <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
+
+        <!--TEMPLATES-->
+
+        <DataTemplate x:Key="debtorTemplate">
+            <WrapPanel>
+                <TextBlock Text="{Binding Path=Name}" Padding="10,0"  MinWidth="150"/>
+                <TextBlock Text="{Binding Path=TotalDebt}" Padding="10,0" MinWidth="100"/>
+            </WrapPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="debtTemplate">
+            <WrapPanel>
+                <TextBlock Text="{Binding Path=Date}" Padding="10,0"  MinWidth="100"/>
+                <TextBlock Text="{Binding Path=DebtValue}" Padding="10,0" MinWidth="50"/>
+            </WrapPanel>
+        </DataTemplate>
+
+
     </Application.Resources>
 </Application>

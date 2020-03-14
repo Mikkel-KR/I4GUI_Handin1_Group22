@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using Debt_Book.Models;
 using Debt_Book.Views;
 using Prism.Commands;
@@ -26,14 +27,18 @@ namespace Debt_Book.ViewModels
             _debtors = new ObservableCollection<Debtor>
             {
                 #if DEBUG
-                new Debtor("Magnus"),
-                new Debtor("Jeppe"),
-                new Debtor("Mikkel"),
-                new Debtor("Markus"),
-                new Debtor("Frederik"),
-                new Debtor("Nikolaj")
+                new Debtor("Magnus Kyneb"),
+                new Debtor("Jeppe Dybdal"),
+                new Debtor("Mikkel Rasmussen"),
+                new Debtor("Markus Hansen"),
+                new Debtor("Frederik Poulsen"),
+                new Debtor("Nikolaj Pedersen")
+
                 #endif
+
             };
+
+            Debtors.Last().TotalDebt = 100;
         }
 
         #region Properties
@@ -62,6 +67,9 @@ namespace Debt_Book.ViewModels
 
         #region OverviewCommands
 
+        /******************/
+        // ADD NEW DEBTOR //
+        /******************/
         private ICommand addCommand;
         public ICommand AddCommand => addCommand ?? (addCommand = new DelegateCommand(() =>
         {
@@ -72,6 +80,37 @@ namespace Debt_Book.ViewModels
 
         }));
 
+        /*************************/
+        // SHOW DEBTS FOR DEBTOR //
+        /*************************/
+        private ICommand showDebtsCommand;
+        public ICommand ShowDebtsCommand => showDebtsCommand ?? (showDebtsCommand = new DelegateCommand(() =>
+        {
+            var vm = new DetailsWindowViewModel($"{CurrentDebtor.Name} - Debts Overview", CurrentDebtor);
+            vm.CurrentDebtor.Debts.Add(new Debt(200));
+            var dlg = new DetailsWindow();
+            dlg.DataContext = vm;
+            dlg.Owner = App.Current.MainWindow;
+            
+
+            if (dlg.ShowDialog() == true)
+            {
+                // ??
+            }
+
+        }));
+
+        /***************************/
+        // CHANGE BACKGROUND COLOR //
+        /***************************/
+        private ICommand _changeColorCommand;
+        public ICommand ChangeColorCommand => _changeColorCommand ?? (_changeColorCommand = new DelegateCommand<string>((color) =>
+        {
+              var convertedColor = (Color) ColorConverter.ConvertFromString(color);
+              SolidColorBrush newBrush = new SolidColorBrush(convertedColor);
+              Application.Current.Resources["BackgroundColor"] = newBrush;
+        }));
+                                                  
         #endregion
 
 

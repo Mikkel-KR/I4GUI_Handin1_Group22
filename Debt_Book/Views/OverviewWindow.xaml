@@ -5,24 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Debt_Book"
         xmlns:viewModels="clr-namespace:Debt_Book.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <viewModels:OverviewWindowViewModel/>
     </Window.DataContext>
-    <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="4*"/>
-        </Grid.RowDefinitions>
+    <DockPanel Background="{DynamicResource BackgroundColor}">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Debtors">
+                <MenuItem Header="Add" Command="{Binding Path=AddCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Color">
+                <MenuItem Header="White" Command="{Binding Path=ChangeColorCommand}" CommandParameter="White"/>
+                <MenuItem Header="Grey" Command="{Binding Path=ChangeColorCommand}" CommandParameter="DarkGray"/>
+                <MenuItem Header="Aqua" Command="{Binding Path=ChangeColorCommand}" CommandParameter="Aqua"/>
+                <MenuItem Header="Pink" Command="{Binding Path=ChangeColorCommand}" CommandParameter="HotPink"/>
+                <MenuItem Header="Light Green" Command="{Binding Path=ChangeColorCommand}" CommandParameter="LightGreen"/>
+                <MenuItem Header="Gold" Command="{Binding Path=ChangeColorCommand}" CommandParameter="Gold"/>
+            </MenuItem>
+        </Menu>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" VerticalAlignment="Center">Debtors</TextBlock>
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Path=Debtors}" DisplayMemberPath="Name"></ListBox>
-        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Command="{Binding Path=AddCommand}">Add</Button>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" FontWeight="Bold" VerticalAlignment="Center">Debtors</TextBlock>
+
+            <ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource debtorTemplate}"
+                     ItemsSource="{Binding Path=Debtors}"
+                     SelectedItem="{Binding Path=CurrentDebtor}"
+                     SelectedIndex="{Binding Path=CurrentIndex}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding ShowDebtsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBox>
+
+            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Command="{Binding Path=AddCommand}">Add</Button>
+        </Grid>
+
+    </DockPanel>
 </Window>
