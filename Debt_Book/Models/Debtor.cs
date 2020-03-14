@@ -34,7 +34,7 @@ namespace Debt_Book.Models
             set
             {
                 SetProperty(ref _debts, value);
-                TotalDebt += Debts.Last().DebtValue;
+                TotalDebt += _debts.Last().DebtValue;
             }
         }
 

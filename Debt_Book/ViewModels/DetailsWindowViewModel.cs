@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Debt_Book.Models;
 using Debt_Book.Views;
@@ -13,17 +14,17 @@ using Prism.Mvvm;
 
 namespace Debt_Book.ViewModels
 {
-    public class DetailsWindowViewModel : BindableBase, INotifyPropertyChanged
+    public class DetailsWindowViewModel : BindableBase
     {
         private string _title;
         private Debtor _currentDebtor;
-        private string textBoxValue;
+        private string _textBoxValue;
 
         public DetailsWindowViewModel(string title, Debtor debtor)
         {
             Title = title;
             CurrentDebtor = debtor;
-            textBoxValue = "";
+            TextBoxValue = "0";
         }
 
         #region Properties
@@ -42,15 +43,8 @@ namespace Debt_Book.ViewModels
 
         public string TextBoxValue
         {
-            get => textBoxValue;
-            set
-            {
-                if (textBoxValue != value)
-                {
-                    textBoxValue = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            get => _textBoxValue;
+            set => SetProperty(ref _textBoxValue, value);
         }
 
         #endregion
@@ -60,53 +54,37 @@ namespace Debt_Book.ViewModels
         /**********************************/
         // ADD NEW DEBT TO CURRENT DEBTOR //
         /**********************************/
-        /**************************************************************************************************************************/
-        // Har lidt problemer her. Kan ikke få den til at tjekke om den kan execute, medmindre jeg trykker væk fra Add-debt boxen. /
-        // Dette kan man kun gøre hvis der allerede er en debt i listboxen...                                                      /
-        /**************************************************************************************************************************/
         private ICommand addDebtCommand;
         public ICommand AddDebtCommand => addDebtCommand ??
-                                          (addDebtCommand = new DelegateCommand(AddDebtCommandExecute,
-                                              AddDebtCommandCanExecute).ObservesProperty((() => TextBoxValue)));
+                                          (addDebtCommand = new DelegateCommand(AddDebtCommandExecute));
         private void AddDebtCommandExecute()
         {
-            var debtValue = Int32.Parse(TextBoxValue);
-
-            CurrentDebtor.Debts.Add(new Debt(debtValue));
-        }
-
-        private bool AddDebtCommandCanExecute()
-        {
-            Int32 val;
+            double debtValue;
 
             try
             {
-                val = Int32.Parse(TextBoxValue);
+                debtValue = double.Parse(TextBoxValue);
             }
             catch (Exception ex)
             {
-                return false;
+
+                MessageBox.Show("The debt-value has to be a value!", "Error-1", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
             }
 
-            return (val > -1000000000 && val < 1000000000 && val != 0);
-
-        }
-
-
-        #endregion
-
-
-        #region NotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (debtValue > -1000000000 && debtValue < 1000000000 && (int)debtValue != 0)
+            {
+                CurrentDebtor.Debts.Add(new Debt(debtValue));
+            }
+            else
+            {
+                MessageBox.Show("The debt-value has to be between -1000000000 and 1000000000, and not be zero!", "Error-2", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         #endregion
-
 
     }
 }

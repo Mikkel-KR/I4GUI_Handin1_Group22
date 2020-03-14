@@ -18,11 +18,13 @@
             </MenuItem>
             <MenuItem Header="Debtors">
                 <MenuItem Header="Add" Command="{Binding Path=AddCommand}"/>
+                <MenuItem Header="Show Debts" Command="{Binding Path=ShowDebtsCommand}"/>
             </MenuItem>
             <MenuItem Header="Color">
                 <MenuItem Header="White" Command="{Binding Path=ChangeColorCommand}" CommandParameter="White"/>
                 <MenuItem Header="Grey" Command="{Binding Path=ChangeColorCommand}" CommandParameter="DarkGray"/>
                 <MenuItem Header="Aqua" Command="{Binding Path=ChangeColorCommand}" CommandParameter="Aqua"/>
+                <MenuItem Header="Blue" Command="{Binding Path=ChangeColorCommand}" CommandParameter="CornflowerBlue"/>
                 <MenuItem Header="Pink" Command="{Binding Path=ChangeColorCommand}" CommandParameter="HotPink"/>
                 <MenuItem Header="Light Green" Command="{Binding Path=ChangeColorCommand}" CommandParameter="LightGreen"/>
                 <MenuItem Header="Gold" Command="{Binding Path=ChangeColorCommand}" CommandParameter="Gold"/>
@@ -41,7 +43,7 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" FontWeight="Bold" VerticalAlignment="Center">Debtors</TextBlock>
 
-            <ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource debtorTemplate}"
+            <ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{DynamicResource debtorTemplate}"
                      ItemsSource="{Binding Path=Debtors}"
                      SelectedItem="{Binding Path=CurrentDebtor}"
                      SelectedIndex="{Binding Path=CurrentIndex}">

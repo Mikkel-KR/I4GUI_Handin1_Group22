@@ -98,7 +98,7 @@ namespace Debt_Book.ViewModels
                 // ??
             }
 
-        }));
+        }, () => { return CurrentIndex >= 0; }).ObservesProperty((() => CurrentIndex)));
 
         /***************************/
         // CHANGE BACKGROUND COLOR //
