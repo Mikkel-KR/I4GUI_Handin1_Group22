@@ -20,8 +20,6 @@ namespace Debt_Book.ViewModels
         private int _currentIndex = -1;
         private Debtor _currentDebtor = null;
 
-        
-
         public OverviewWindowViewModel()
         {
             _debtors = new ObservableCollection<Debtor>
@@ -37,8 +35,6 @@ namespace Debt_Book.ViewModels
                 #endif
 
             };
-
-            Debtors.Last().TotalDebt = 100;
         }
 
         #region Properties
@@ -98,12 +94,10 @@ namespace Debt_Book.ViewModels
         public ICommand ShowDebtsCommand => showDebtsCommand ?? (showDebtsCommand = new DelegateCommand(() =>
         {
             var vm = new DetailsWindowViewModel($"{CurrentDebtor.Name} - Debts Overview", CurrentDebtor);
-            vm.CurrentDebtor.Debts.Add(new Debt(200));
             var dlg = new DetailsWindow();
             dlg.DataContext = vm;
             dlg.Owner = App.Current.MainWindow;
             
-
             if (dlg.ShowDialog() == true)
             {
                 // ??

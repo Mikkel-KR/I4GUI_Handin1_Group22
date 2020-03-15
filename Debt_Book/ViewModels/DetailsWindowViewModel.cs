@@ -73,9 +73,10 @@ namespace Debt_Book.ViewModels
                 return;
             }
 
-            if (debtValue > -1000000000 && debtValue < 1000000000 && (int)debtValue != 0)
+            if (debtValue > -1000000000 && debtValue < 1000000000 && debtValue != 0)
             {
                 CurrentDebtor.Debts.Add(new Debt(debtValue));
+                CurrentDebtor.TotalDebt += debtValue;
             }
             else
             {

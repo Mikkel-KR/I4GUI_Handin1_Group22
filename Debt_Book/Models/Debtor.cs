@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Prism.Mvvm;
 
 namespace Debt_Book.Models
@@ -31,11 +32,7 @@ namespace Debt_Book.Models
         public ObservableCollection<Debt> Debts
         {
             get => _debts;
-            set
-            {
-                SetProperty(ref _debts, value);
-                TotalDebt += _debts.Last().DebtValue;
-            }
+            set => SetProperty(ref _debts, value);
         }
 
         public double TotalDebt

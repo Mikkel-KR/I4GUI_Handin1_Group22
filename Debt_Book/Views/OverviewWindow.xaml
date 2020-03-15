@@ -43,7 +43,26 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" FontWeight="Bold" VerticalAlignment="Center">Debtors</TextBlock>
 
-            <ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{DynamicResource debtorTemplate}"
+            <ListView Grid.Column="0" Grid.Row="1" Margin="10" 
+                      ItemsSource="{Binding Path=Debtors}" 
+                      SelectedItem="{Binding Path=CurrentDebtor}"
+                      SelectedIndex="{Binding Path=CurrentIndex}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                            <GridViewColumn Header="Total Debt" DisplayMemberBinding="{Binding Path=TotalDebt, StringFormat=\{0:N0\} kr.}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding ShowDebtsCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+
+            <!--<ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource debtorTemplate}"
                      ItemsSource="{Binding Path=Debtors}"
                      SelectedItem="{Binding Path=CurrentDebtor}"
                      SelectedIndex="{Binding Path=CurrentIndex}">
@@ -52,7 +71,7 @@
                         <i:InvokeCommandAction Command="{Binding ShowDebtsCommand}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </ListBox>
+            </ListBox>-->
 
             <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Style="{StaticResource ButtonStyle}"
                     Command="{Binding Path=AddCommand}">Add</Button>

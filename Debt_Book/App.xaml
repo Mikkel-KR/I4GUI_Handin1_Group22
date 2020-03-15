@@ -41,7 +41,7 @@
         <DataTemplate x:Key="debtTemplate" DataType="models:Debt">
             <WrapPanel>
                 <TextBlock Text="{Binding Path=Date}" Padding="10,0"  MinWidth="100"/>
-                <TextBlock Text="{Binding Path=DebtValue}" Padding="10,0" MinWidth="50"/>
+                <TextBlock Text="{Binding Path=DebtValue, StringFormat=\{0:N0\} kr.}" Padding="10,0" MinWidth="50"/>
             </WrapPanel>
         </DataTemplate>
 
