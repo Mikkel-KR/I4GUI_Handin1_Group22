@@ -18,7 +18,7 @@
                      ItemsSource="{Binding Path=CurrentDebtor.Debts}">
 
             </ListBox>
-            <Button Margin="50,5" Padding="2" IsCancel="True">Cancel</Button>
+            <Button Margin="50,5" Padding="2" IsCancel="True" Style="{StaticResource ButtonStyle}">Cancel</Button>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
@@ -27,7 +27,7 @@
                 <TextBox Name="TxbDebtVal" Margin="5" MinWidth="50" TextAlignment="Center" TextWrapping="NoWrap" 
                          Text="{Binding Path=TextBoxValue, Mode=TwoWay}"/>
             </WrapPanel>
-            <Button Margin="10" Padding="5" Command="{Binding Path=AddDebtCommand}">Add Debt</Button>
+            <Button Margin="10" Padding="5" Style="{StaticResource ButtonStyle}" Command="{Binding Path=AddDebtCommand}">Add Debt</Button>
         </StackPanel>
 
     </Grid>

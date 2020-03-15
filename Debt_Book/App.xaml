@@ -8,6 +8,27 @@
 
         <SolidColorBrush x:Key="BackgroundColor" Color="CornflowerBlue"/>
 
+        <!--STYLES-->
+
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="3" Color="Navy" BlurRadius="12"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
         <!--TEMPLATES-->
 
         <DataTemplate x:Key="debtorTemplate" DataType="models:Debtor">

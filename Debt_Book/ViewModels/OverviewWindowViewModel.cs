@@ -67,9 +67,20 @@ namespace Debt_Book.ViewModels
 
         #region OverviewCommands
 
-        /******************/
-        // ADD NEW DEBTOR //
-        /******************/
+        /***************/
+        // FILE - EXIT //
+        /***************/
+        private ICommand exitCommand;
+
+        public ICommand ExitCommand => exitCommand ?? (exitCommand = new DelegateCommand((() =>
+        {
+            Environment.Exit(1);
+        }
+        ))); // Indsæt således at man kun kan "exit" hvis filen er gemt / messagebox der spørger om man vil exit hvis filen ikke er gemt...
+
+        /****************/
+        // DEBTOR - ADD //
+        /****************/
         private ICommand addCommand;
         public ICommand AddCommand => addCommand ?? (addCommand = new DelegateCommand(() =>
         {
@@ -80,9 +91,9 @@ namespace Debt_Book.ViewModels
 
         }));
 
-        /*************************/
-        // SHOW DEBTS FOR DEBTOR //
-        /*************************/
+        /************************/
+        // DEBTOR - SHOW DEBTS  //
+        /************************/
         private ICommand showDebtsCommand;
         public ICommand ShowDebtsCommand => showDebtsCommand ?? (showDebtsCommand = new DelegateCommand(() =>
         {

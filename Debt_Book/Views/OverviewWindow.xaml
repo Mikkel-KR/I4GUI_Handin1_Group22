@@ -14,7 +14,7 @@
     <DockPanel Background="{DynamicResource BackgroundColor}">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Exit"/>
+                <MenuItem Header="Exit" Command="{Binding Path=ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Debtors">
                 <MenuItem Header="Add" Command="{Binding Path=AddCommand}"/>
@@ -54,7 +54,8 @@
                 </i:Interaction.Triggers>
             </ListBox>
 
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Command="{Binding Path=AddCommand}">Add</Button>
+            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Style="{StaticResource ButtonStyle}"
+                    Command="{Binding Path=AddCommand}">Add</Button>
         </Grid>
 
     </DockPanel>
