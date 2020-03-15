@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Debt_Book"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        Title="{Binding Path=Title}" Height="400" Width="400">
+        Title="{Binding Path=Title}" Height="400" Width="500">
     <Grid Margin="20" Background="{DynamicResource BackgroundColor}">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
@@ -18,16 +18,23 @@
                      ItemsSource="{Binding Path=CurrentDebtor.Debts}">
 
             </ListBox>
-            <Button Margin="50,5" Padding="2" IsCancel="True" Style="{StaticResource ButtonStyle}">Cancel</Button>
+            <Button HorizontalAlignment="Center" IsCancel="True" 
+                    Style="{StaticResource ButtonStyle}">
+                Cancel
+            </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
             <WrapPanel>
                 <Label FontWeight="Bold">Value:</Label>
-                <TextBox Name="TxbDebtVal" Margin="5" MinWidth="50" TextAlignment="Center" TextWrapping="NoWrap" 
-                         Text="{Binding Path=TextBoxValue, Mode=TwoWay}"/>
+                <TextBox Name="TxbDebtVal" Margin="5" MinWidth="100" TextAlignment="Center" TextWrapping="NoWrap" 
+                         Text="{Binding Path=TextBoxValue}"/>
             </WrapPanel>
-            <Button Margin="10" Padding="5" Style="{StaticResource ButtonStyle}" Command="{Binding Path=AddDebtCommand}">Add Debt</Button>
+            <Button HorizontalAlignment="Center" Margin="30,10"
+                    Style="{StaticResource ButtonStyle}" 
+                    Command="{Binding Path=AddDebtCommand}">
+                Add Debt
+            </Button>
         </StackPanel>
 
     </Grid>

@@ -43,7 +43,7 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" FontWeight="Bold" VerticalAlignment="Center">Debtors</TextBlock>
 
-            <ListView Grid.Column="0" Grid.Row="1" Margin="10" 
+            <ListView Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MinWidth="300" Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding Path=Debtors}" 
                       SelectedItem="{Binding Path=CurrentDebtor}"
                       SelectedIndex="{Binding Path=CurrentIndex}">
@@ -73,7 +73,7 @@
                 </i:Interaction.Triggers>
             </ListBox>-->
 
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="20 4" Margin="10" Style="{StaticResource ButtonStyle}"
+            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Padding="20,4" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"
                     Command="{Binding Path=AddCommand}">Add</Button>
         </Grid>
 
