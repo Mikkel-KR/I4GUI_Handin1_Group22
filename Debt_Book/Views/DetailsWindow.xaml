@@ -15,7 +15,9 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <ListBox Margin="10" Height="250" ItemTemplate="{StaticResource debtTemplate}"
+            <ListBox Margin="10" Height="250" 
+                     Style="{StaticResource ListStyle}"
+                     ItemTemplate="{StaticResource debtTemplate}"
                      ItemsSource="{Binding Path=CurrentDebtor.Debts}">
 
             </ListBox>

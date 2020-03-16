@@ -49,7 +49,7 @@
 
             <TextBlock Grid.Column="0" Grid.Row="0" FontSize="26" FontWeight="Bold" VerticalAlignment="Center">Debtors</TextBlock>
 
-            <ListView Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MinWidth="300" Style="{StaticResource ListViewStyle}"
+            <ListView Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" MinWidth="300" Style="{StaticResource ListStyle}"
                       ItemsSource="{Binding Path=Debtors}" 
                       SelectedItem="{Binding Path=CurrentDebtor}"
                       SelectedIndex="{Binding Path=CurrentIndex}">

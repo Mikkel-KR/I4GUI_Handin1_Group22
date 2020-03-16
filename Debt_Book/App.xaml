@@ -10,7 +10,7 @@
 
         <!--STYLES-->
 
-        <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+        <Style x:Key="ListStyle" TargetType="{x:Type Control}">
             <Style.Setters>
                 <Setter Property="Background" Value="AntiqueWhite"/>
                 <Setter Property="BorderBrush" Value="DarkGray"/>
