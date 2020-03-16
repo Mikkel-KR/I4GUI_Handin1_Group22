@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:Debt_Book"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundColor}"
         Title="{Binding Path=Title}" Height="400" Width="500">
-    <Grid Margin="20" Background="{DynamicResource BackgroundColor}">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+        <StackPanel Grid.Column="0">
             <ListBox Margin="10" Height="250" ItemTemplate="{StaticResource debtTemplate}"
                      ItemsSource="{Binding Path=CurrentDebtor.Debts}">
 
@@ -23,17 +24,16 @@
                     Content="Close"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+        <StackPanel Grid.Column="1">
             <WrapPanel>
                 <Label FontWeight="Bold">Value:</Label>
                 <TextBox Name="TxbDebtVal" Margin="5" MinWidth="100" TextAlignment="Center" TextWrapping="NoWrap" 
-                         Text="{Binding Path=TextBoxValue}"/>
+                             Text="{Binding Path=TextBoxValue}"/>
             </WrapPanel>
             <Button HorizontalAlignment="Center" Margin="30,10"
-                    Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding Path=AddDebtCommand}"
-                    Content="Add Debt"/>
-            
+                        Style="{StaticResource ButtonStyle}" 
+                        Command="{Binding Path=AddDebtCommand}"
+                        Content="Add Debt"/>
         </StackPanel>
 
     </Grid>

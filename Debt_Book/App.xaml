@@ -12,7 +12,6 @@
 
         <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
             <Style.Setters>
-                <Setter Property="Margin" Value="10"/>
                 <Setter Property="Background" Value="AntiqueWhite"/>
                 <Setter Property="BorderBrush" Value="DarkGray"/>
                 <Setter Property="BorderThickness" Value="5"/>

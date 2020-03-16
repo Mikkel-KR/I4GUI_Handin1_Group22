@@ -29,5 +29,9 @@ namespace Debt_Book.Models
             debtValue = debt;
             date = DateTime.Now;
         }
+
+        public Debt()
+        {
+        }
     }
 }

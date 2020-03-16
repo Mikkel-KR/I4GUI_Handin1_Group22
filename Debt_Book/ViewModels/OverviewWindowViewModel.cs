@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xml.Serialization;
 using Debt_Book.Models;
 using Debt_Book.Views;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -19,22 +22,13 @@ namespace Debt_Book.ViewModels
         private ObservableCollection<Debtor> _debtors;
         private int _currentIndex = -1;
         private Debtor _currentDebtor = null;
+        private bool _dirty = false;
+        private string _filePath = "";
+        private string _fileName = "";
 
         public OverviewWindowViewModel()
         {
-            _debtors = new ObservableCollection<Debtor>
-            {
-                #if DEBUG
-                new Debtor("Magnus Kyneb"),
-                new Debtor("Jeppe Dybdal"),
-                new Debtor("Mikkel Rasmussen"),
-                new Debtor("Markus Hansen"),
-                new Debtor("Frederik Poulsen"),
-                new Debtor("Nikolaj Pedersen")
-
-                #endif
-
-            };
+            _debtors = new ObservableCollection<Debtor>();
         }
 
         #region Properties
@@ -55,6 +49,24 @@ namespace Debt_Book.ViewModels
         {
             get => _currentDebtor;
             set => SetProperty(ref _currentDebtor, value);
+        }
+
+        public bool Dirty
+        {
+            get => _dirty;
+            set => SetProperty(ref _dirty, value);
+        }
+
+        public string FilePath
+        {
+            get => _filePath;
+            set => SetProperty(ref _filePath, value);
+        }
+
+        public string FileName
+        {
+            get => _fileName;
+            set => SetProperty(ref _fileName, value);
         }
 
         #endregion
@@ -87,7 +99,10 @@ namespace Debt_Book.ViewModels
             if (dlg.ShowDialog() == true)
             {
                 if (newDebtor.TotalDebt > -1000000000 && newDebtor.TotalDebt < 1000000000)
+                {
                     Debtors.Add(newDebtor);
+                    Dirty = true;
+                }
                 else
                     MessageBox.Show("The debt-value has to be between -1000000000 and 1000000000",
                         "Error-2", MessageBoxButton.OK,
@@ -102,29 +117,143 @@ namespace Debt_Book.ViewModels
         private ICommand showDebtsCommand;
         public ICommand ShowDebtsCommand => showDebtsCommand ?? (showDebtsCommand = new DelegateCommand(() =>
         {
+            //Debtor tempDebtor = CurrentDebtor.Clone();
+
+            Debt tempDebt = CurrentDebtor.Debts.Last();
+
             var vm = new DetailsWindowViewModel($"{CurrentDebtor.Name} - Debts Overview", CurrentDebtor);
             var dlg = new DetailsWindow();
             dlg.DataContext = vm;
             dlg.Owner = App.Current.MainWindow;
-            
+
             if (dlg.ShowDialog() == true)
             {
-                // ??
+                //Intet heri, men den skal være der, så vinduet åbner.
+                //Ved at have denne boks, kan vi yderligere tjekke for om der er tilføjet nye debt i det nedenstående kode:
             }
+
+            if (tempDebt != CurrentDebtor.Debts.Last())
+                Dirty = true;
 
         }, () => { return CurrentIndex >= 0; }).ObservesProperty((() => CurrentIndex)));
 
         /***************************/
         // CHANGE BACKGROUND COLOR //
         /***************************/
-        private ICommand _changeColorCommand;
-        public ICommand ChangeColorCommand => _changeColorCommand ?? (_changeColorCommand = new DelegateCommand<string>((color) =>
+        private ICommand changeColorCommand;
+        public ICommand ChangeColorCommand => changeColorCommand ?? (changeColorCommand = new DelegateCommand<string>((color) =>
         {
               var convertedColor = (Color) ColorConverter.ConvertFromString(color);
               SolidColorBrush newBrush = new SolidColorBrush(convertedColor);
               Application.Current.Resources["BackgroundColor"] = newBrush;
         }));
-                                                  
+
+
+        private ICommand newCommand;
+
+        public ICommand NewCommand => newCommand ?? (newCommand = new DelegateCommand(() =>
+        {
+            MessageBoxResult result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _filePath = "";
+                Debtors.Clear();
+            }
+
+        }));
+
+        private ICommand openCommand;
+
+        public ICommand OpenCommand => openCommand ?? (openCommand = new DelegateCommand(() =>
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Text Document|*.txt|All Files|*.*",
+                DefaultExt = "txt"
+            };
+            if (FilePath == "")
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            else
+                dialog.InitialDirectory = Path.GetDirectoryName(FilePath);
+
+            if (dialog.ShowDialog(App.Current.MainWindow) == true)
+            {
+                FilePath = dialog.FileName;
+                FileName = Path.GetFileName(FilePath);
+
+                ObservableCollection<Debtor> tempDebtors = new ObservableCollection<Debtor>();
+
+                XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Debtor>));
+
+                try
+                {
+                    TextReader reader = new StreamReader(FilePath);
+                    tempDebtors = (ObservableCollection<Debtor>)serializer.Deserialize(reader);
+                    reader.Close();
+                    Debtors = tempDebtors;
+                    Dirty = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Unable to open file", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+
+        }));
+
+        private ICommand saveAsCommand;
+        public ICommand SaveAsCommand => saveAsCommand ?? (saveAsCommand = new DelegateCommand(() =>
+        {
+            var dialog = new SaveFileDialog
+            {
+                Filter = "Text Document|*.txt|All Files|*.*",
+                DefaultExt = "txt"
+            };
+            if (_filePath == "")
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            else
+                dialog.InitialDirectory = Path.GetDirectoryName(FilePath);
+
+            if (dialog.ShowDialog(App.Current.MainWindow) == true)
+            {
+                FilePath = dialog.FileName;
+                FileName = Path.GetFileName(FilePath);
+                SaveFile();
+            }
+
+        }));
+
+        private ICommand saveCommand;
+        public ICommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(SaveFile, () =>
+                                           {
+                                               if (Dirty && !string.IsNullOrWhiteSpace(FileName) &&
+                                                   string.IsNullOrWhiteSpace(FilePath))
+                                                   return true;
+                                               return false;
+                                           })
+                                           .ObservesProperty(() => FileName)
+                                           .ObservesProperty(() => FilePath)
+                                           .ObservesProperty(() => Dirty));
+
+        private void SaveFile()
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Debtor>));
+                TextWriter writer = new StreamWriter(FilePath);
+                serializer.Serialize(writer, Debtors);
+                writer.Close();
+                Dirty = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Unable to save file", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         #endregion
 
     }

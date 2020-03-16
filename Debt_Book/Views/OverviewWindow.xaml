@@ -15,7 +15,12 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Exit" Command="{Binding Path=ExitCommand}"/>
+                <MenuItem Command="{Binding NewCommand}" Header="_New" />
+                <MenuItem Command="{Binding OpenCommand}" CommandParameter="{Binding ElementName=FileName, Path=Text}" Header="_Open" />
+                <MenuItem Command="{Binding SaveCommand}" Header="_Save" />
+                <MenuItem Command="{Binding SaveAsCommand}" CommandParameter="{Binding ElementName=FileName, Path=Text}" Header="Save _As" />
+                <Separator/>
+                <MenuItem Command="{Binding ExitCommand}" Header="_Exit" />
             </MenuItem>
             <MenuItem Header="Debtors">
                 <MenuItem Header="Add" Command="{Binding Path=AddCommand}"/>
@@ -51,8 +56,8 @@
                 <ListView.View>
                     <GridView>
                         <GridView.Columns>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
-                            <GridViewColumn Header="Total Debt" DisplayMemberBinding="{Binding Path=TotalDebt, StringFormat=\{0:N0\} kr.}"/>
+                            <GridViewColumn Width="140" Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                            <GridViewColumn Width="140" Header="Total Debt" DisplayMemberBinding="{Binding Path=TotalDebt, StringFormat=\{0:N0\} kr.}"/>
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
@@ -74,7 +79,7 @@
                 </i:Interaction.Triggers>
             </ListBox>-->
 
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Padding="20,4" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"
+            <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Padding="20,4" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"
                     Command="{Binding Path=AddCommand}">Add</Button>
         </Grid>
 

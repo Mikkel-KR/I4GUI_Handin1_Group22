@@ -22,6 +22,10 @@ namespace Debt_Book.Models
             _totalDebt = 0;
         }
 
+        public Debtor()
+        {
+        }
+
         #region Properties
 
         public string Name
