@@ -108,15 +108,14 @@ namespace Debt_Book.ViewModels
                 var result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-                if (result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.No)
                 {
-                    Environment.Exit(1);
+                    return;
                 }
             }
-            else
-            {
-                Environment.Exit(1);
-            }
+
+            Environment.Exit(1);
+
         }
         ))); // Indsæt således at man kun kan "exit" hvis filen er gemt / messagebox der spørger om man vil exit hvis filen ikke er gemt...
 
@@ -192,7 +191,9 @@ namespace Debt_Book.ViewModels
               Application.Current.Resources["BackgroundColor"] = newBrush;
         }));
 
-
+        /**************/
+        // FILE - NEW //
+        /**************/
         private ICommand newCommand;
 
         public ICommand NewCommand => newCommand ?? (newCommand = new DelegateCommand(() =>
@@ -202,24 +203,23 @@ namespace Debt_Book.ViewModels
                 MessageBoxResult result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-                if (result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.No)
                 {
-                    FilePath = "";
-                    FileName = "";
-                    Debtors.Clear();
-                    Dirty = false;
+                    return;
                 }
             }
-            else
-            {
-                FilePath = "";
-                FileName = "";
-                Debtors.Clear();
-                Dirty = false;
-            }
+
+            FilePath = "";
+            FileName = "";
+            Debtors.Clear();
+            Dirty = false;
+            Title = "Untitled - " + _appTitle;
 
         }));
 
+        /***************/
+        // FILE - OPEN //
+        /***************/
         private ICommand openCommand;
 
         public ICommand OpenCommand => openCommand ?? (openCommand = new DelegateCommand(() =>
@@ -272,6 +272,9 @@ namespace Debt_Book.ViewModels
 
         }));
 
+        /******************/
+        // FILE - SAVE AS //
+        /******************/
         private ICommand saveAsCommand;
         public ICommand SaveAsCommand => saveAsCommand ?? (saveAsCommand = new DelegateCommand(() =>
         {
@@ -294,6 +297,9 @@ namespace Debt_Book.ViewModels
             }
         }));
 
+        /***************/
+        // FILE - SAVE //
+        /***************/
         private ICommand saveCommand;
         public ICommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(SaveFile, SaveFile_CanExecute)
                                            .ObservesProperty(() => FileName)
