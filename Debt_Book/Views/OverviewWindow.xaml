@@ -69,17 +69,6 @@
                 </i:Interaction.Triggers>
             </ListView>
 
-            <!--<ListBox Grid.Column="0" Grid.Row="1" Margin="10" ItemTemplate="{StaticResource debtorTemplate}"
-                     ItemsSource="{Binding Path=Debtors}"
-                     SelectedItem="{Binding Path=CurrentDebtor}"
-                     SelectedIndex="{Binding Path=CurrentIndex}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick">
-                        <i:InvokeCommandAction Command="{Binding ShowDebtsCommand}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ListBox>-->
-
             <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Padding="20,4" VerticalAlignment="Top" Margin="10" Style="{StaticResource ButtonStyle}"
                     Command="{Binding Path=AddCommand}">Add</Button>
         </Grid>
