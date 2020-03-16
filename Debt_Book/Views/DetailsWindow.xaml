@@ -19,9 +19,8 @@
 
             </ListBox>
             <Button HorizontalAlignment="Center" IsCancel="True" 
-                    Style="{StaticResource ButtonStyle}">
-                Cancel
-            </Button>
+                    Style="{StaticResource ButtonStyle}" 
+                    Content="Close"/>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
@@ -32,9 +31,9 @@
             </WrapPanel>
             <Button HorizontalAlignment="Center" Margin="30,10"
                     Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding Path=AddDebtCommand}">
-                Add Debt
-            </Button>
+                    Command="{Binding Path=AddDebtCommand}"
+                    Content="Add Debt"/>
+            
         </StackPanel>
 
     </Grid>
