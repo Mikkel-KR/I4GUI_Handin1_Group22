@@ -228,8 +228,8 @@ namespace Debt_Book.ViewModels
 
             var dialog = new OpenFileDialog
             {
-                Filter = "Text Document|*.txt|All Files|*.*",
-                DefaultExt = "txt"
+                Filter = "XML Document|*.xml|Text Document|*.txt|All Files|*.*",
+                DefaultExt = "xml"
             };
             if (FilePath == "")
                 dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -281,8 +281,8 @@ namespace Debt_Book.ViewModels
         {
             var dialog = new SaveFileDialog
             {
-                Filter = "Text Document|*.txt|All Files|*.*",
-                DefaultExt = "txt"
+                Filter = "XML Document|*.xml|Text Document|*.txt|All Files|*.*",
+                DefaultExt = "xml"
             };
             if (_filePath == "")
                 dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -323,6 +323,7 @@ namespace Debt_Book.ViewModels
                 TextWriter writer = new StreamWriter(FilePath);
                 serializer.Serialize(writer, Debtors);
                 writer.Close();
+                
                 Dirty = false;
             }
             catch (Exception ex)
