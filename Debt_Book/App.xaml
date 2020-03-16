@@ -41,13 +41,6 @@
 
         <!--TEMPLATES-->
 
-        <!--<DataTemplate x:Key="debtorTemplate" DataType="models:Debtor">
-            <WrapPanel>
-                <TextBlock Text="{Binding Path=Name}" Padding="10,0"  MinWidth="150"/>
-                <TextBlock Text="{Binding Path=TotalDebt}" Padding="10,0" MinWidth="100"/>
-            </WrapPanel>
-        </DataTemplate>-->
-
         <DataTemplate x:Key="debtTemplate" DataType="models:Debt">
             <WrapPanel>
                 <TextBlock Text="{Binding Path=Date}" Padding="10,0"  MinWidth="100"/>

@@ -25,11 +25,13 @@ namespace Debt_Book.ViewModels
         private bool _dirty = false;
         private string _filePath = "";
         private string _fileName = "";
-        private string _appTitle = "Debtors Assignment";
-        private string _title = "Untitled";
+        private string _appTitle = "The Debt Book";
+        private string _title;
 
         public OverviewWindowViewModel()
         {
+            Title = "Untitled - " + _appTitle;
+
             _debtors = new ObservableCollection<Debtor>
             {
                 #if DEBUG
