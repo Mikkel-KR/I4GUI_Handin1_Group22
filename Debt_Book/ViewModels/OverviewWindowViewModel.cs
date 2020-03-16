@@ -28,7 +28,17 @@ namespace Debt_Book.ViewModels
 
         public OverviewWindowViewModel()
         {
-            _debtors = new ObservableCollection<Debtor>();
+            _debtors = new ObservableCollection<Debtor>
+            {
+#if DEBUG
+                new Debtor("Magnus"),
+                new Debtor("Mikkel"),
+                new Debtor("Markus"),
+                new Debtor("Frederik"),
+                new Debtor("Jeppe"),
+                new Debtor("Nikolaj"),
+#endif
+            };
         }
 
         #region Properties
@@ -119,7 +129,12 @@ namespace Debt_Book.ViewModels
         {
             //Debtor tempDebtor = CurrentDebtor.Clone();
 
-            Debt tempDebt = CurrentDebtor.Debts.Last();
+
+            ObservableCollection<Debt> tempDebt = new ObservableCollection<Debt>();
+            foreach (var debt in CurrentDebtor.Debts)
+            {
+                tempDebt.Add(debt);
+            }
 
             var vm = new DetailsWindowViewModel($"{CurrentDebtor.Name} - Debts Overview", CurrentDebtor);
             var dlg = new DetailsWindow();
@@ -132,8 +147,11 @@ namespace Debt_Book.ViewModels
                 //Ved at have denne boks, kan vi yderligere tjekke for om der er tilføjet nye debt i det nedenstående kode:
             }
 
-            if (tempDebt != CurrentDebtor.Debts.Last())
+            if (tempDebt != CurrentDebtor.Debts)
+            {
                 Dirty = true;
+            }
+               
 
         }, () => { return CurrentIndex >= 0; }).ObservesProperty((() => CurrentIndex)));
 
@@ -158,8 +176,10 @@ namespace Debt_Book.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
-                _filePath = "";
+                FilePath = "";
+                FileName = "";
                 Debtors.Clear();
+                Dirty = false;
             }
 
         }));
