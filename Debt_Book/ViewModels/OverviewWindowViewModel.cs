@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -118,7 +119,7 @@ namespace Debt_Book.ViewModels
             Environment.Exit(1);
 
         }
-        ))); // Indsæt således at man kun kan "exit" hvis filen er gemt / messagebox der spørger om man vil exit hvis filen ikke er gemt...
+        )));
 
         /****************/
         // DEBTOR - ADD //

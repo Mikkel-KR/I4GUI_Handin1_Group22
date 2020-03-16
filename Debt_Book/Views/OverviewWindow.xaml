@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Debt_Book"
         xmlns:viewModels="clr-namespace:Debt_Book.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
         Background="{DynamicResource BackgroundColor}"
         Title="{Binding Path=Title}" Height="450" Width="800">
