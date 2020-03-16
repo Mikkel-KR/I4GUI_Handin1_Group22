@@ -23,5 +23,10 @@ namespace Debt_Book.Views
         {
             InitializeComponent();
         }
+
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

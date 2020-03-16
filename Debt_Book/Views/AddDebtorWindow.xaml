@@ -5,24 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Debt_Book.Views"
         mc:Ignorable="d"
-        Title="AddDebtorWindow" Height="300" Width="300"
+        Title="Add new debtor" Height="400" Width="300"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BackgroundColor}"
         FontSize="20">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Add Debtor</Label>
-        <TextBox Name="AddDebtorName" Grid.Row="1" VerticalAlignment="Center"></TextBox>
-
-        <Grid Row="2">
+        <StackPanel Grid.Row="1">
+            <Label Content="Name:"/>
+            <TextBox Name="AddDebtorName" VerticalAlignment="Center" Text="{Binding Path=NewDebtor.Name}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Label Content="Initial Debt:"/>
+            <TextBox Name="AddInitialDebt" VerticalAlignment="Center" Text="{Binding Path=InitialDebt}"></TextBox>
+        </StackPanel>
+        <Grid Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10 3" Content="Save"/>
+            <Button Name="SaveButton" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10 3" Content="Save" Command="{Binding Path=SaveCommand}" Click="SaveButton_OnClick"/>
             <Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10 3" IsCancel="True" Content="Cancel"/>
         </Grid>
     </Grid>

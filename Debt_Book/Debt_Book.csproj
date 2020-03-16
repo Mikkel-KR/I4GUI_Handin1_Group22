@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\AddDebtorWindowViewModel.cs" />
     <Compile Include="ViewModels\DetailsWindowViewModel.cs" />
     <Compile Include="ViewModels\OverviewWindowViewModel.cs" />
     <Page Include="Views\AddDebtorWindow.xaml">

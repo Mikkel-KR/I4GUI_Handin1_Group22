@@ -61,8 +61,6 @@ namespace Debt_Book.ViewModels
 
         #region Commands
 
-        #region OverviewCommands
-
         /***************/
         // FILE - EXIT //
         /***************/
@@ -80,10 +78,21 @@ namespace Debt_Book.ViewModels
         private ICommand addCommand;
         public ICommand AddCommand => addCommand ?? (addCommand = new DelegateCommand(() =>
         {
-            AddDebtorWindow wn = new AddDebtorWindow();
-            wn.Show();
+            Debtor newDebtor = new Debtor("");
+            var vm = new AddDebtorWindowViewModel(newDebtor);
+            var dlg = new AddDebtorWindow();
+            dlg.DataContext = vm;
+            dlg.Owner = App.Current.MainWindow;
 
-            //Mere mangler i denne funktion!
+            if (dlg.ShowDialog() == true)
+            {
+                if (newDebtor.TotalDebt > -1000000000 && newDebtor.TotalDebt < 1000000000)
+                    Debtors.Add(newDebtor);
+                else
+                    MessageBox.Show("The debt-value has to be between -1000000000 and 1000000000",
+                        "Error-2", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+            }
 
         }));
 
@@ -118,31 +127,5 @@ namespace Debt_Book.ViewModels
                                                   
         #endregion
 
-
-        /****************************************************************************************************************/
-        // Denne command skal i en ny MVVM for AddDebtorWindow - Debtors name property bør yderligere have en set metode /
-        /****************************************************************************************************************/
-
-        #region AddDebtorCommands
-
-        private ICommand saveCommand;
-        public ICommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand<string>(SaveCommand_Execute));
-
-        private void SaveCommand_Execute(string DebtorName)
-        {
-            if (DebtorName == "")
-            {
-                MessageBox.Show("You must enter a debtor name in the Debtor Name textbox!", "Unable to add debtor",
-                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
-            {
-                Debtors.Add(new Debtor(DebtorName));
-            }
-        }
-
-        #endregion
-
-        #endregion
     }
 }

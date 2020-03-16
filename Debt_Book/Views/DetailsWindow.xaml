@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Debt_Book"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource BackgroundColor}"
         Title="{Binding Path=Title}" Height="400" Width="400">
-    <Grid Margin="20" Background="{DynamicResource BackgroundColor}">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
@@ -18,7 +19,7 @@
                      ItemsSource="{Binding Path=CurrentDebtor.Debts}">
 
             </ListBox>
-            <Button Margin="50,5" Padding="2" IsCancel="True" Style="{StaticResource ButtonStyle}">Cancel</Button>
+            <Button Margin="50,5" Padding="2" IsCancel="True" Style="{StaticResource ButtonStyle}">Close</Button>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">

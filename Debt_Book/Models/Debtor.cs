@@ -27,6 +27,7 @@ namespace Debt_Book.Models
         public string Name
         {
             get => _name;
+            set => SetProperty(ref _name, value);
         }
 
         public ObservableCollection<Debt> Debts

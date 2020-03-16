@@ -65,7 +65,7 @@ namespace Debt_Book.ViewModels
             {
                 debtValue = double.Parse(TextBoxValue);
             }
-            catch (Exception ex)
+            catch
             {
 
                 MessageBox.Show("The debt-value has to be a value!", "Error-1", MessageBoxButton.OK,
