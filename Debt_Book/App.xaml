@@ -10,12 +10,23 @@
 
         <!--STYLES-->
 
+        <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+            <Style.Setters>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Background" Value="AntiqueWhite"/>
+                <Setter Property="BorderBrush" Value="DarkGray"/>
+                <Setter Property="BorderThickness" Value="5"/>
+            </Style.Setters>
+        </Style>
+
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Style.Setters>
                 <Setter Property="Height" Value="Auto"/>
                 <Setter Property="Width" Value="Auto"/>
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="Padding" Value="10,5"/>
+                <Setter Property="Margin" Value="10"/>
             </Style.Setters>
             <Style.Triggers>
                 <Trigger Property="Control.IsMouseOver" Value="True">
@@ -31,12 +42,12 @@
 
         <!--TEMPLATES-->
 
-        <DataTemplate x:Key="debtorTemplate" DataType="models:Debtor">
+        <!--<DataTemplate x:Key="debtorTemplate" DataType="models:Debtor">
             <WrapPanel>
                 <TextBlock Text="{Binding Path=Name}" Padding="10,0"  MinWidth="150"/>
                 <TextBlock Text="{Binding Path=TotalDebt}" Padding="10,0" MinWidth="100"/>
             </WrapPanel>
-        </DataTemplate>
+        </DataTemplate>-->
 
         <DataTemplate x:Key="debtTemplate" DataType="models:Debt">
             <WrapPanel>
