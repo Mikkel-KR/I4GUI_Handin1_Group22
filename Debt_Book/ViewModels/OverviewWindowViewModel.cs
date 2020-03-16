@@ -56,6 +56,7 @@ namespace Debt_Book.ViewModels
             set => SetProperty(ref _title, value);
         }
 
+        [XmlArray, XmlArrayItem(typeof(Debtor))]
         public ObservableCollection<Debtor> Debtors
         {
             get => _debtors;
