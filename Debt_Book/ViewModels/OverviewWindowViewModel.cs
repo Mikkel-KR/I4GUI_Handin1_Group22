@@ -243,20 +243,21 @@ namespace Debt_Book.ViewModels
                 FileName = Path.GetFileName(FilePath);
                 SaveFile();
             }
-
         }));
 
         private ICommand saveCommand;
-        public ICommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(SaveFile, () =>
-                                           {
-                                               if (Dirty && !string.IsNullOrWhiteSpace(FileName) &&
-                                                   string.IsNullOrWhiteSpace(FilePath))
-                                                   return true;
-                                               return false;
-                                           })
+        public ICommand SaveCommand => saveCommand ?? (saveCommand = new DelegateCommand(SaveFile, SaveFile_CanExecute)
                                            .ObservesProperty(() => FileName)
                                            .ObservesProperty(() => FilePath)
                                            .ObservesProperty(() => Dirty));
+
+        private bool SaveFile_CanExecute()
+        {
+            if (Dirty && !string.IsNullOrWhiteSpace(FileName) &&
+                !string.IsNullOrWhiteSpace(FilePath))
+                return true;
+            return false;
+        }
 
         private void SaveFile()
         {
