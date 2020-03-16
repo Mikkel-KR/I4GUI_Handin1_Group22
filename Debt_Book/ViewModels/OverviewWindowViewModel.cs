@@ -167,6 +167,10 @@ namespace Debt_Book.ViewModels
         }));
 
 
+        /***************/
+        // NEW COMMAND //
+        /***************/
+
         private ICommand newCommand;
 
         public ICommand NewCommand => newCommand ?? (newCommand = new DelegateCommand(() =>
@@ -183,6 +187,11 @@ namespace Debt_Book.ViewModels
             }
 
         }));
+
+
+        /****************/
+        // OPEN COMMAND //
+        /****************/
 
         private ICommand openCommand;
 
@@ -223,6 +232,10 @@ namespace Debt_Book.ViewModels
             }
 
         }));
+
+        /*****************/
+        // SAVE COMMANDS //
+        /*****************/
 
         private ICommand saveAsCommand;
         public ICommand SaveAsCommand => saveAsCommand ?? (saveAsCommand = new DelegateCommand(() =>
