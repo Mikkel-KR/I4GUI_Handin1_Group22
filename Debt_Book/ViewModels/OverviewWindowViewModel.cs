@@ -25,23 +25,36 @@ namespace Debt_Book.ViewModels
         private bool _dirty = false;
         private string _filePath = "";
         private string _fileName = "";
+        private string _appTitle = "Debtors Assignment";
+        private string _title = "Untitled";
 
         public OverviewWindowViewModel()
         {
             _debtors = new ObservableCollection<Debtor>
             {
-#if DEBUG
+                #if DEBUG
                 new Debtor("Magnus"),
                 new Debtor("Mikkel"),
                 new Debtor("Markus"),
                 new Debtor("Frederik"),
                 new Debtor("Jeppe"),
                 new Debtor("Nikolaj"),
-#endif
+                #endif
             };
+
+            #if DEBUG
+            Dirty = true;
+            #endif
+
         }
 
         #region Properties
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
 
         public ObservableCollection<Debtor> Debtors
         {
@@ -90,7 +103,20 @@ namespace Debt_Book.ViewModels
 
         public ICommand ExitCommand => exitCommand ?? (exitCommand = new DelegateCommand((() =>
         {
-            Environment.Exit(1);
+            if (Dirty)
+            {
+                var result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Environment.Exit(1);
+                }
+            }
+            else
+            {
+                Environment.Exit(1);
+            }
         }
         ))); // Indsæt således at man kun kan "exit" hvis filen er gemt / messagebox der spørger om man vil exit hvis filen ikke er gemt...
 
@@ -171,10 +197,20 @@ namespace Debt_Book.ViewModels
 
         public ICommand NewCommand => newCommand ?? (newCommand = new DelegateCommand(() =>
         {
-            MessageBoxResult result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
-                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            if (Dirty)
+            {
+                MessageBoxResult result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
-            if (result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
+                {
+                    FilePath = "";
+                    FileName = "";
+                    Debtors.Clear();
+                    Dirty = false;
+                }
+            }
+            else
             {
                 FilePath = "";
                 FileName = "";
@@ -188,6 +224,7 @@ namespace Debt_Book.ViewModels
 
         public ICommand OpenCommand => openCommand ?? (openCommand = new DelegateCommand(() =>
         {
+
             var dialog = new OpenFileDialog
             {
                 Filter = "Text Document|*.txt|All Files|*.*",
@@ -200,6 +237,17 @@ namespace Debt_Book.ViewModels
 
             if (dialog.ShowDialog(App.Current.MainWindow) == true)
             {
+                if (Dirty)
+                {
+                    MessageBoxResult result = MessageBox.Show("Any unsaved data will be lost. Do you wish to continue?", "WARNING",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
                 FilePath = dialog.FileName;
                 FileName = Path.GetFileName(FilePath);
 
@@ -242,6 +290,7 @@ namespace Debt_Book.ViewModels
                 FilePath = dialog.FileName;
                 FileName = Path.GetFileName(FilePath);
                 SaveFile();
+                Title = FileName + " - " + _appTitle;
             }
         }));
 
